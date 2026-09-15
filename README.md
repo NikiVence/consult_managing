@@ -132,7 +132,7 @@ python -m venv .venv
 ## Материалы ПР1
 
 - Отчёт: [Markdown](docs/report_pr1.md), [Word](docs/report_pr1.docx),
-  [PDF — 2 страницы](docs/report_pr1.pdf).
+  [PDF — титульный лист и 2 страницы основной части](docs/report_pr1.pdf).
 - [Ответы на контрольные вопросы](docs/control_questions.md).
 - [Чек-лист сдачи](docs/checklist.md).
 - [Фактический протокол проверок](docs/verification.txt).
