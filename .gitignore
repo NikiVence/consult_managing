@@ -11,6 +11,7 @@ htmlcov/
 .env.*
 !.env.example
 .tmp/
+debug.log
 ~$*.docx
 Thumbs.db
 .DS_Store

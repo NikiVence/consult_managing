@@ -1,0 +1,32 @@
+=== buggy: actual pdb session ===
+> d:\consult_managing\.tmp\buggy.py(1)<module>()
+-> from datetime import datetime, timedelta
+(Pdb) Breakpoint 1 at d:\consult_managing\.tmp\buggy.py:5
+(Pdb) > d:\consult_managing\.tmp\buggy.py(5)calculate_end_time()
+-> ends_at = starts_at + timedelta(hours=duration_minutes)
+(Pdb) datetime.datetime(2026, 9, 16, 15, 0)
+(Pdb) 45
+(Pdb) > d:\consult_managing\.tmp\buggy.py(6)calculate_end_time()
+-> return ends_at
+(Pdb) datetime.datetime(2026, 9, 18, 12, 0)
+(Pdb) 2026-09-18 12:00:00
+The program finished and will be restarted
+> d:\consult_managing\.tmp\buggy.py(1)<module>()
+-> from datetime import datetime, timedelta
+(Pdb)
+=== fixed: actual pdb session ===
+> d:\consult_managing\.tmp\fixed.py(1)<module>()
+-> from datetime import datetime, timedelta
+(Pdb) Breakpoint 1 at d:\consult_managing\.tmp\fixed.py:5
+(Pdb) > d:\consult_managing\.tmp\fixed.py(5)calculate_end_time()
+-> ends_at = starts_at + timedelta(minutes=duration_minutes)
+(Pdb) datetime.datetime(2026, 9, 16, 15, 0)
+(Pdb) 45
+(Pdb) > d:\consult_managing\.tmp\fixed.py(6)calculate_end_time()
+-> return ends_at
+(Pdb) datetime.datetime(2026, 9, 16, 15, 45)
+(Pdb) 2026-09-16 15:45:00
+The program finished and will be restarted
+> d:\consult_managing\.tmp\fixed.py(1)<module>()
+-> from datetime import datetime, timedelta
+(Pdb)
