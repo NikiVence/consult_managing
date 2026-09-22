@@ -1,78 +1,135 @@
-"""ПР1: запись одного студента на консультацию преподавателя."""
+"""ПР3: консольное меню системы управления консультациями."""
 
+from copy import deepcopy
 from datetime import datetime, timedelta
+from pathlib import Path
+
+from models import Consultation, Student, Teacher
+from services import (
+    create_booking,
+    find_by_id,
+    is_available,
+    next_id,
+    search_consultations,
+    sort_consultations,
+)
+from storage import Data, load_data, save_data
+from utils import input_datetime, input_int
+
+DATA_PATH = Path(__file__).resolve().parent / "data" / "consultations.json"
+MENU = """
+1 — Расписание консультаций
+2 — Поиск по теме или преподавателю
+3 — Пользователи
+4 — Добавить пользователя
+5 — Добавить консультацию
+6 — Проверить возможность записи
+7 — Записать студента
+8 — Все записи
+9 — Отменить запись
+0 — Выход
+"""
 
 
-def get_booking_status(is_available, starts_at, current_time, duration_minutes):
-    """Проверить свободный слот, дату и длительность консультации."""
-    if not is_available:
-        return "Отказ: выбранное время уже занято."
-    elif starts_at <= current_time:
-        return "Отказ: консультация уже началась или прошла."
-    elif duration_minutes < 15 or duration_minutes > 90:
-        return "Отказ: длительность должна быть от 15 до 90 минут."
-    return "Запись доступна."
-
-
-def calculate_end_time(starts_at, duration_minutes):
-    """Рассчитать окончание консультации по началу и длительности."""
-    ends_at = starts_at + timedelta(minutes=duration_minutes)
-    return ends_at
-
-
-def create_confirmation(student_name, teacher_name, topic, starts_at, ends_at):
-    """Сформировать подтверждение записи с датой и временем."""
-    return (
-        f"Запись подтверждена!\n"
-        f"Студент: {student_name}\n"
-        f"Преподаватель: {teacher_name}\n"
-        f"Тема: {topic}\n"
-        f"Начало: {starts_at:%d.%m.%Y %H:%M}\n"
-        f"Окончание: {ends_at:%d.%m.%Y %H:%M}"
-    )
-
-
-def main():
-    """Выполнить один законченный сценарий записи в консоли."""
-    teacher_name = "Иванова Анна Сергеевна"
-    topic = "Основы Python"
-    current_time = datetime.now()
-    starts_at = (current_time + timedelta(days=1)).replace(
+def initial_data() -> Data:
+    """Начальные объекты для первого запуска; далее загружается JSON."""
+    student = Student(1, "Алиев Никита")
+    teacher = Teacher(2, "Иванова Анна Сергеевна")
+    tomorrow = (datetime.now() + timedelta(days=1)).replace(
         hour=15, minute=0, second=0, microsecond=0
     )
-    is_available = True
+    consultations = [
+        Consultation(1, teacher, "Основы Python", tomorrow),
+        Consultation(2, teacher, "ООП в Python", tomorrow + timedelta(hours=2)),
+    ]
+    return [student, teacher], consultations, []
 
-    print("Система управления консультациями")
-    print(f"Преподаватель: {teacher_name}")
-    print(f"Тема: {topic}")
-    print(f"Доступное время: {starts_at:%d.%m.%Y %H:%M}")
 
-    student_name = input("Введите имя студента: ").strip()
-    if not student_name:
-        print("Отказ: имя студента не должно быть пустым.")
+def execute_action(choice: str, data: Data) -> tuple[bool, str]:
+    """Обработать действие; вернуть признак изменения и сообщение."""
+    users, consultations, bookings = data
+    if choice == "1":
+        return False, "\n".join(str(item) for item in sort_consultations(consultations))
+    if choice == "2":
+        found = search_consultations(consultations, input("Тема или преподаватель: "))
+        return False, "\n".join(str(item) for item in found) or "Ничего не найдено."
+    if choice == "3":
+        return False, "\n".join(str(user) for user in users) or "Пользователей нет."
+    if choice == "4":
+        role = input("Роль: 1 — студент, 2 — преподаватель: ").strip()
+        if role not in ("1", "2"):
+            raise ValueError("Выберите роль 1 или 2.")
+        user_type = Student if role == "1" else Teacher
+        user = user_type(next_id(users), input("Имя: "))
+        users.append(user)
+        return True, f"Добавлен: {user}"
+    if choice == "5":
+        teacher = find_by_id(users, input_int("ID преподавателя: "))
+        topic = input("Тема: ")
+        starts_at = input_datetime("Начало (ДД.ММ.ГГГГ ЧЧ:ММ): ")
+        consultation = Consultation(next_id(consultations), teacher, topic, starts_at)
+        if not consultation.is_future():
+            raise ValueError("Укажите будущее время консультации.")
+        if any(
+            item.teacher.id == teacher.id and item.starts_at == starts_at
+            for item in consultations
+        ):
+            raise ValueError("Такой слот преподавателя уже существует.")
+        consultations.append(consultation)
+        return True, f"Добавлена консультация: {consultation}"
+    if choice == "6":
+        consultation = find_by_id(consultations, input_int("ID консультации: "))
+        if not consultation.is_future():
+            return False, "Консультация уже началась или прошла."
+        available = is_available(consultation, bookings)
+        return False, "Слот свободен." if available else "Слот занят."
+    if choice == "7":
+        student = find_by_id(users, input_int("ID студента: "))
+        consultation = find_by_id(consultations, input_int("ID консультации: "))
+        duration = input_int("Длительность (15–90 минут): ")
+        booking = create_booking(bookings, student, consultation, duration)
+        return True, booking.confirmation()
+    if choice == "8":
+        return False, "\n".join(str(item) for item in bookings) or "Записей нет."
+    if choice == "9":
+        booking = find_by_id(bookings, input_int("ID записи: "))
+        booking.cancel()
+        return True, f"Запись #{booking.id} отменена. Слот освобождён."
+    raise ValueError("Выберите пункт меню от 0 до 9.")
+
+
+def main(data_path: Path = DATA_PATH) -> None:
+    """Загрузить данные, выполнить меню, сохранять успешные изменения."""
+    print("Система управления консультациями — ПР3")
+    try:
+        if data_path.exists():
+            data = load_data(data_path)
+        else:
+            data = initial_data()
+            save_data(data_path, data)
+    except (OSError, ValueError) as error:
+        print(f"Не удалось загрузить данные: {error}")
         return
 
-    duration_text = input("Длительность консультации (15–90 минут): ").strip()
-    if not duration_text.isdecimal() or len(duration_text) > 3:
-        print("Отказ: введите целое число минут от 15 до 90.")
-        return
-
-    duration_minutes = int(duration_text)
-    duration_hours = duration_minutes / 60
-    status = get_booking_status(
-        is_available, starts_at, datetime.now(), duration_minutes
-    )
-    print(status)
-    if status != "Запись доступна.":
-        return
-
-    ends_at = calculate_end_time(starts_at, duration_minutes)
-    is_available = False
-    print(create_confirmation(
-        student_name, teacher_name, topic, starts_at, ends_at
-    ))
-    print(f"Длительность: {duration_minutes} мин. ({duration_hours:.2f} ч.)")
-    print(f"Слот свободен: {is_available}")
+    while True:
+        try:
+            print(MENU)
+            choice = input("Выберите действие: ").strip()
+            if choice == "0":
+                print("Работа завершена. Данные сохранены.")
+                return
+            # Изменяем копию: ошибка записи файла не меняет рабочие объекты.
+            draft = deepcopy(data)
+            changed, message = execute_action(choice, draft)
+            if changed:
+                save_data(data_path, draft)
+                data = draft
+            print(message or "Консультаций нет.")
+        except (ValueError, OSError) as error:
+            print(f"Ошибка: {error}")
+        except (EOFError, KeyboardInterrupt):
+            print("\nРабота завершена. Успешные операции уже сохранены.")
+            return
 
 
 if __name__ == "__main__":
