@@ -73,7 +73,6 @@ def main():
     ))
     print(f"Длительность: {duration_minutes} мин. ({duration_hours:.2f} ч.)")
     print(f"Слот свободен: {is_available}")
-    print("Учебный режим: запись хранится только до завершения программы.")
 
 
 if __name__ == "__main__":
