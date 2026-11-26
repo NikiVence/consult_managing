@@ -1,0 +1,100 @@
+.\tools\browser_check.py:23:89: E501 line too long (104 > 88 characters)
+.\tools\browser_check.py:58:89: E501 line too long (107 > 88 characters)
+.\tools\browser_check.py:68:89: E501 line too long (90 > 88 characters)
+.\tools\browser_check.py:83:89: E501 line too long (97 > 88 characters)
+.\tools\browser_check.py:93:51: E231 missing whitespace after ':'
+.\tools\browser_check.py:93:55: E231 missing whitespace after ','
+.\tools\browser_check.py:93:64: E231 missing whitespace after ':'
+.\tools\browser_check.py:93:89: E501 line too long (108 > 88 characters)
+.\tools\browser_check.py:97:89: E501 line too long (109 > 88 characters)
+.\tools\browser_check.py:105:89: E501 line too long (110 > 88 characters)
+.\tools\build_api_docs.py:12:89: E501 line too long (118 > 88 characters)
+.\tools\build_api_docs.py:146:89: E501 line too long (96 > 88 characters)
+.\tools\build_api_docs.py:151:89: E501 line too long (1200 > 88 characters)
+.\tools\build_api_docs.py:155:89: E501 line too long (323 > 88 characters)
+.\tools\load_check.py:25:89: E501 line too long (113 > 88 characters)
+.\tools\load_check.py:29:58: E231 missing whitespace after ':'
+.\tools\load_check.py:29:89: E501 line too long (103 > 88 characters)
+.\tools\load_check.py:29:92: E231 missing whitespace after ':'
+.\tools\load_check.py:30:89: E501 line too long (128 > 88 characters)
+.\tools\load_check.py:40:41: E231 missing whitespace after ','
+.\tools\load_check.py:40:53: E231 missing whitespace after ':'
+.\tools\load_check.py:40:62: E231 missing whitespace after ','
+.\tools\load_check.py:40:73: E231 missing whitespace after ':'
+.\tools\load_check.py:40:82: E231 missing whitespace after ','
+.\tools\load_check.py:40:89: E501 line too long (121 > 88 characters)
+.\tools\load_check.py:40:89: E231 missing whitespace after ':'
+.\tools\load_check.py:41:30: E231 missing whitespace after ','
+.\tools\load_check.py:41:44: E231 missing whitespace after ','
+.\tools\load_check.py:49:89: E501 line too long (90 > 88 characters)
+.\tools\load_check.py:51:89: E501 line too long (116 > 88 characters)
+.\tools\load_check.py:62:21: E231 missing whitespace after ':'
+.\tools\load_check.py:62:25: E231 missing whitespace after ','
+.\tools\load_check.py:62:39: E231 missing whitespace after ':'
+.\tools\load_check.py:62:42: E231 missing whitespace after ','
+.\tools\load_check.py:62:60: E231 missing whitespace after ':'
+.\tools\load_check.py:62:74: E231 missing whitespace after ','
+.\tools\load_check.py:63:32: E231 missing whitespace after ':'
+.\tools\load_check.py:63:50: E231 missing whitespace after ','
+.\tools\load_check.py:63:53: E231 missing whitespace after ','
+.\tools\load_check.py:63:62: E231 missing whitespace after ':'
+.\tools\load_check.py:63:89: E501 line too long (100 > 88 characters)
+.\tools\load_check.py:63:97: E231 missing whitespace after ','
+.\tools\load_check.py:64:19: E231 missing whitespace after ':'
+.\tools\load_check.py:64:62: E231 missing whitespace after ','
+.\tools\load_check.py:65:19: E231 missing whitespace after ':'
+.\tools\load_check.py:65:40: E231 missing whitespace after ','
+.\tools\load_check.py:65:53: E231 missing whitespace after ':'
+.\tools\load_check.py:65:62: E225 missing whitespace around operator
+.\tools\load_check.py:66:23: E231 missing whitespace after ':'
+.\tools\load_check.py:66:32: E225 missing whitespace around operator
+.\tools\load_check.py:67:26: E231 missing whitespace after ':'
+.\tools\load_check.py:67:45: E231 missing whitespace after ':'
+.\tools\load_check.py:67:89: E501 line too long (100 > 88 characters)
+.\tools\load_check.py:70:20: E231 missing whitespace after ','
+.\tools\load_check.py:71:89: E501 line too long (125 > 88 characters)
+.\tools\load_check.py:71:96: E231 missing whitespace after ','
+.\tools\load_check.py:75:73: E231 missing whitespace after ','
+.\tools\load_check.py:76:17: E231 missing whitespace after ','
+.\tools\load_check.py:77:67: E231 missing whitespace after ':'
+.\tools\load_check.py:77:89: E501 line too long (161 > 88 characters)
+.\tools\load_check.py:77:95: E231 missing whitespace after ':'
+.\tools\load_check.py:77:115: E231 missing whitespace after ':'
+.\tools\load_check.py:87:83: E231 missing whitespace after ':'
+.\tools\load_check.py:87:89: E501 line too long (123 > 88 characters)
+.\tools\load_check.py:87:119: E231 missing whitespace after ':'
+.\tools\load_check.py:88:21: E231 missing whitespace after ','
+.\tools\load_check.py:88:28: E231 missing whitespace after ','
+.\tools\load_check.py:91:39: E231 missing whitespace after ','
+.\tools\load_check.py:92:57: E231 missing whitespace after ','
+.\tools\load_check.py:93:14: E231 missing whitespace after ','
+.\tools\load_check.py:93:21: E231 missing whitespace after ','
+.\tools\load_check.py:95:89: E501 line too long (91 > 88 characters)
+.\tools\load_check.py:105:89: E501 line too long (92 > 88 characters)
+.\tools\load_check.py:106:89: E501 line too long (96 > 88 characters)
+.\tools\load_check.py:107:89: E501 line too long (115 > 88 characters)
+.\tools\load_check.py:109:25: E231 missing whitespace after ','
+.\tools\load_check.py:109:35: E231 missing whitespace after ','
+.\tools\load_check.py:109:42: E231 missing whitespace after ','
+.\tools\load_check.py:109:47: E231 missing whitespace after ','
+.\tools\load_check.py:109:53: E231 missing whitespace after ','
+.\tools\load_check.py:109:62: E231 missing whitespace after ','
+.\tools\load_check.py:109:74: E231 missing whitespace after ','
+.\tools\load_check.py:109:82: E231 missing whitespace after ','
+.\tools\load_check.py:109:87: E231 missing whitespace after ','
+.\tools\load_check.py:109:89: E501 line too long (136 > 88 characters)
+.\tools\load_check.py:109:96: E231 missing whitespace after ','
+.\tools\load_check.py:109:105: E231 missing whitespace after ','
+.\tools\load_check.py:109:116: E231 missing whitespace after ','
+.\tools\load_check.py:110:49: E231 missing whitespace after ','
+.\tools\load_check.py:110:68: E231 missing whitespace after ','
+.\tools\load_check.py:110:78: E231 missing whitespace after ','
+.\tools\load_check.py:110:89: E501 line too long (95 > 88 characters)
+.\tools\load_check.py:111:24: E231 missing whitespace after ','
+.\tools\load_check.py:111:43: E231 missing whitespace after ','
+.\webapp\schedule\migrations\0001_initial.py:42:89: E501 line too long (117 > 88 characters)
+.\webapp\schedule\migrations\0001_initial.py:52:89: E501 line too long (107 > 88 characters)
+.\webapp\schedule\migrations\0001_initial.py:83:89: E501 line too long (94 > 88 characters)
+.\webapp\schedule\migrations\0001_initial.py:91:89: E501 line too long (138 > 88 characters)
+.\webapp\schedule\migrations\0001_initial.py:113:89: E501 line too long (134 > 88 characters)
+

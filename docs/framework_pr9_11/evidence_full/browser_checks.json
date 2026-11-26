@@ -1,0 +1,7 @@
+[
+  "GET filters, ordering and page 2: 200",
+  "Occupied consultation rejected, non-field error shown",
+  "Create 45 min -> edit 60 min (same URL) -> cancel: passed",
+  "Missing booking: HTTP 404",
+  "Admin models, booking search/status filter, consultation inline: 200"
+]

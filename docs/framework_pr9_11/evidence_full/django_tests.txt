@@ -1,0 +1,92 @@
+Found 48 test(s).
+System check identified no issues (0 silenced).
+
+Creating test database for alias 'default'...
+
+D:\consult_managing\.venv\Lib\site-packages\django\core\handlers\base.py:61: UserWarning: No directory at: D:\фреймворки\tmp\full-report-qa\webapp\staticfiles\
+  mw_instance = middleware(adapted_handler)
+{"method": "GET", "path": "/api/bookings/", "status": 401, "ms": 3.09}
+.{"method": "POST", "path": "/api/bookings/", "status": 403, "ms": 0.45}
+.{"method": "POST", "path": "/api/auth/login/", "status": 403, "ms": 0.32}
+{"method": "GET", "path": "/api/csrf/", "status": 200, "ms": 0.27}
+{"method": "POST", "path": "/api/auth/login/", "status": 200, "ms": 4.64}
+.{"method": "POST", "path": "/api/bookings/", "status": 201, "ms": 8.25}
+{"method": "GET", "path": "/api/bookings/", "status": 200, "ms": 4.89}
+{"method": "POST", "path": "/api/bookings/1/cancel/", "status": 200, "ms": 7.0}
+.{"method": "GET", "path": "/health/ready/", "status": 200, "ms": 0.35}
+{"method": "GET", "path": "/health/ready/", "status": 503, "ms": 0.22}
+.{"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 1.74}
+{"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 1.14}
+{"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 1.13}
+{"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 1.13}
+.{"method": "POST", "path": "/api/auth/login/", "status": 400, "ms": 0.18}
+.{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 0.9}
+{"method": "POST", "path": "/api/auth/login/", "status": 200, "ms": 2.22}
+{"method": "GET", "path": "/api/auth/me/", "status": 200, "ms": 1.29}
+{"method": "POST", "path": "/api/auth/logout/", "status": 200, "ms": 1.87}
+{"method": "GET", "path": "/api/auth/me/", "status": 200, "ms": 0.15}
+.{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.85}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.88}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.24}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.16}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.07}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.34}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.57}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.55}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 2.02}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.29}
+{"method": "POST", "path": "/api/auth/login/", "status": 429, "ms": 0.27}
+.{"method": "GET", "path": "/api/bookings/", "status": 200, "ms": 5.92}
+.{"method": "GET", "path": "/api/consultations/", "status": 200, "ms": 4.77}
+{"method": "GET", "path": "/api/consultations/", "status": 200, "ms": 0.68}
+.{"method": "GET", "path": "/api/consultations/", "status": 200, "ms": 3.8}
+{"method": "GET", "path": "/api/auth/logout/", "status": 405, "ms": 0.21}
+.{"method": "GET", "path": "/bookings/1/", "status": 200, "ms": 165.52}
+{"method": "GET", "path": "/bookings/1/", "status": 200, "ms": 8.17}
+{"method": "GET", "path": "/bookings/1/", "status": 403, "ms": 4.38}
+.{"method": "POST", "path": "/api/auth/register/", "status": 201, "ms": 21.61}
+.{"method": "POST", "path": "/api/consultations/", "status": 403, "ms": 2.38}
+.{"method": "POST", "path": "/api/consultations/", "status": 201, "ms": 4.25}
+..{"method": "POST", "path": "/api/auth/register/", "status": 400, "ms": 0.66}
+.{"method": "POST", "path": "/api/auth/login/", "status": 415, "ms": 0.41}
+.................{"method": "GET", "path": "/bookings/", "status": 302, "ms": 0.45}
+{"method": "GET", "path": "/accounts/login/", "status": 200, "ms": 18.22}
+{"method": "GET", "path": "/bookings/new/", "status": 403, "ms": 3.27}
+...{"method": "POST", "path": "/bookings/1/edit/", "status": 200, "ms": 21.5}
+.{"method": "POST", "path": "/bookings/new/", "status": 302, "ms": 13.46}
+{"method": "GET", "path": "/bookings/1/", "status": 200, "ms": 5.56}
+{"method": "POST", "path": "/bookings/1/edit/", "status": 302, "ms": 16.43}
+{"method": "GET", "path": "/bookings/1/", "status": 200, "ms": 5.55}
+{"method": "GET", "path": "/bookings/1/cancel/", "status": 405, "ms": 1.6}
+{"method": "POST", "path": "/bookings/1/cancel/", "status": 302, "ms": 6.52}
+.{"method": "POST", "path": "/bookings/new/", "status": 403, "ms": 0.2}
+{"method": "POST", "path": "/bookings/1/edit/", "status": 403, "ms": 0.15}
+{"method": "POST", "path": "/bookings/1/cancel/", "status": 403, "ms": 0.14}
+.{"method": "GET", "path": "/bookings/", "status": 200, "ms": 30.08}
+{"method": "GET", "path": "/bookings/", "status": 200, "ms": 17.7}
+{"method": "GET", "path": "/bookings/", "status": 200, "ms": 20.9}
+{"method": "GET", "path": "/bookings/", "status": 200, "ms": 18.35}
+{"method": "GET", "path": "/bookings/", "status": 200, "ms": 12.92}
+{"method": "GET", "path": "/bookings/", "status": 200, "ms": 14.35}
+{"method": "GET", "path": "/bookings/", "status": 200, "ms": 16.85}
+.{"method": "POST", "path": "/bookings/1/edit/", "status": 403, "ms": 5.23}
+{"method": "POST", "path": "/bookings/1/cancel/", "status": 403, "ms": 7.32}
+{"method": "GET", "path": "/bookings/99999/edit/", "status": 404, "ms": 6.22}
+{"method": "POST", "path": "/bookings/99999/cancel/", "status": 404, "ms": 3.28}
+.{"method": "POST", "path": "/bookings/new/", "status": 200, "ms": 17.65}
+{"method": "POST", "path": "/bookings/new/", "status": 200, "ms": 19.84}
+.{"method": "GET", "path": "/consultations/django-32fe54c95bba43dfb0d8f02f4afed5d0/", "status": 200, "ms": 14.24}
+{"method": "GET", "path": "/admin/schedule/consultation/", "status": 200, "ms": 50.21}
+{"method": "GET", "path": "/admin/schedule/booking/", "status": 200, "ms": 13.12}
+{"method": "GET", "path": "/admin/schedule/consultation/1/change/", "status": 200, "ms": 43.21}
+.{"method": "GET", "path": "/statistics/", "status": 200, "ms": 9.83}
+{"method": "GET", "path": "/api/bookings/", "status": 200, "ms": 5.64}
+{"method": "GET", "path": "/statistics/", "status": 200, "ms": 5.69}
+.{"method": "POST", "path": "/bookings/new/", "status": 302, "ms": 15.68}
+..
+----------------------------------------------------------------------
+Ran 48 tests in 2.310s
+
+OK
+Destroying test database for alias 'default'...
+
