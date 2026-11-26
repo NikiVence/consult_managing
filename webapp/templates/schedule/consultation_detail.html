@@ -1,0 +1,6 @@
+{% extends 'schedule/base.html' %}
+{% block content %}<h1>{{ slot.topic }}</h1>
+<p>Преподаватель: {{ slot.teacher.display_name }}</p>
+<p>{{ slot.starts_at|date:'d.m.Y H:i' }} МСК · {{ slot.location }}</p>
+{% if available %}<p class="pill">Свободна</p><p><a href="{% url 'booking_create' %}">Записаться на консультацию</a></p>
+{% else %}<p>Консультация занята или уже началась.</p>{% endif %}{% endblock %}

@@ -1,0 +1,4 @@
+{% extends 'schedule/base.html' %}
+{% block content %}<h1>Вход в кабинет</h1><form method="post">{% csrf_token %}
+{% include 'schedule/fields.html' %}<input type="hidden" name="next" value="{{ next }}">
+<button class="button" type="submit">Войти</button></form>{% endblock %}

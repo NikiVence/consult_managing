@@ -1,0 +1,14 @@
+*
+!Dockerfile
+!requirements-web.lock
+!webapp/
+!webapp/**
+!deploy/
+!deploy/entrypoint.sh
+!deploy/Dockerfile.offline
+!.tmp/
+!.tmp/linux-wheels/
+!.tmp/linux-wheels/**
+**/__pycache__/
+**/*.pyc
+webapp/staticfiles/

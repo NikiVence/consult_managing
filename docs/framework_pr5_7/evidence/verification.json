@@ -1,0 +1,17 @@
+{
+  "django_tests": {
+    "exit_code": 0
+  },
+  "legacy_tests": {
+    "exit_code": 0
+  },
+  "django_check": {
+    "exit_code": 0
+  },
+  "deploy_local": {
+    "exit_code": 0
+  },
+  "deploy_https_profile": {
+    "exit_code": 0
+  }
+}

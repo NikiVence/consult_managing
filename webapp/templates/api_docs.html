@@ -1,0 +1,16 @@
+{% load static %}<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Консультант — API</title><link rel="stylesheet" href="{% static 'app.css' %}"></head><body><main class="docs"><a href="/">← К расписанию</a><h1>API консультаций</h1><p>Версия 1.0 · JSON · UTF-8</p><p>Вход создаёт серверную сессию с cookie <code>sessionid</code>. Перед POST получите <code>/api/csrf/</code> и передайте <code>csrfToken</code> в заголовке <code>X-CSRFToken</code>. После входа токен меняется — получите новый.</p><p>Длительность — целое число 15–90. Время — ISO 8601 с часовым поясом. Один слот принимает одну активную запись. Пересечения встреч студента или преподавателя запрещены.</p><p>Регистрация создаёт только студента. Преподавателя назначает администратор. Доступ к записям ограничен участниками. Кэш списка: 15 секунд, сброс после изменения; доступность повторно проверяется при бронировании.</p><p><a href="/api/openapi.json">Скачать OpenAPI 3.0 JSON</a></p><table><thead><tr><th>Метод</th><th>Путь</th><th>Назначение</th></tr></thead><tbody><tr><td><b>GET</b></td><td><code>/api/csrf/</code></td><td>Получить CSRF-токен</td></tr>
+<tr><td><b>POST</b></td><td><code>/api/auth/register/</code></td><td>Регистрация студента</td></tr>
+<tr><td><b>POST</b></td><td><code>/api/auth/login/</code></td><td>Вход и создание сессии</td></tr>
+<tr><td><b>POST</b></td><td><code>/api/auth/logout/</code></td><td>Выход из аккаунта</td></tr>
+<tr><td><b>GET</b></td><td><code>/api/auth/me/</code></td><td>Текущий пользователь или null</td></tr>
+<tr><td><b>GET</b></td><td><code>/api/consultations/</code></td><td>Будущие консультации: до 200, по дате</td></tr>
+<tr><td><b>POST</b></td><td><code>/api/consultations/</code></td><td>Создать свой слот (только преподаватель)</td></tr>
+<tr><td><b>GET</b></td><td><code>/api/bookings/</code></td><td>Свои записи; преподаватель видит записи к себе (до 200)</td></tr>
+<tr><td><b>POST</b></td><td><code>/api/bookings/</code></td><td>Записаться (только студент)</td></tr>
+<tr><td><b>POST</b></td><td><code>/api/bookings/{booking_id}/cancel/</code></td><td>Отменить свою запись; повторная отмена безопасна</td></tr>
+<tr><td><b>GET</b></td><td><code>/health/live/</code></td><td>Процесс отвечает</td></tr>
+<tr><td><b>GET</b></td><td><code>/health/ready/</code></td><td>Проверить БД и кэш</td></tr></tbody></table><h2>Пример записи</h2><pre><code>POST /api/bookings/
+Content-Type: application/json
+X-CSRFToken: токен из /api/csrf/
+
+{"consultation_id": 1, "duration_minutes": 45}</code></pre><p>Успех: 201 с объектом записи. Ошибки: 400 — поля; 401 — вход; 403 — права/CSRF; 404 — объект не найден; 409 — конфликт; 415 — тип содержимого; 429 — лимит попыток; 503 — сервис недоступен. Формат: <code>{"error": "Сообщение"}</code>.</p></main></body></html>

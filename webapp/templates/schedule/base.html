@@ -1,0 +1,16 @@
+{% load static %}
+<!doctype html><html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}Консультант{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'app.css' %}">
+<link rel="stylesheet" href="{% static 'forms.css' %}">
+</head><body><main class="docs">
+<nav class="page-nav" aria-label="Навигация">
+<a href="/">Расписание</a><a href="{% url 'booking_list' %}">Мои записи</a>
+<a href="{% url 'statistics' %}">Статистика</a>
+{% if user.is_authenticated %}<span>{{ user.display_name }}</span>{% else %}<a href="{% url 'login' %}">Войти</a>{% endif %}
+</nav>
+{% for message in messages %}<p role="status" class="notice {{ message.tags }}">{{ message }}</p>{% endfor %}
+{% block content %}{% endblock %}
+</main></body></html>

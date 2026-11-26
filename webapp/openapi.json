@@ -1,0 +1,611 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Консультант API",
+    "version": "1.0.0",
+    "description": "Session authentication; obtain CSRF token before any POST. Dates use ISO 8601 with timezone."
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/api/csrf/": {
+      "get": {
+        "summary": "Получить CSRF-токен",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          }
+        }
+      }
+    },
+    "/api/auth/register/": {
+      "post": {
+        "summary": "Регистрация студента",
+        "responses": {
+          "201": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          }
+        },
+        "security": [
+          {
+            "csrf": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "maxLength": 128
+                  }
+                },
+                "required": [
+                  "username",
+                  "name",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login/": {
+      "post": {
+        "summary": "Вход и создание сессии",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          }
+        },
+        "security": [
+          {
+            "csrf": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "maxLength": 128
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout/": {
+      "post": {
+        "summary": "Выход из аккаунта",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          },
+          "401": {
+            "description": "Необходим вход"
+          }
+        },
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/me/": {
+      "get": {
+        "summary": "Текущий пользователь или null",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          }
+        }
+      }
+    },
+    "/api/consultations/": {
+      "get": {
+        "summary": "Будущие консультации: до 200, по дате",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          }
+        },
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ]
+      },
+      "post": {
+        "summary": "Создать свой слот (только преподаватель)",
+        "responses": {
+          "201": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          },
+          "401": {
+            "description": "Необходим вход"
+          }
+        },
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "topic": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "starts_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "topic",
+                  "location",
+                  "starts_at"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/": {
+      "get": {
+        "summary": "Свои записи; преподаватель видит записи к себе (до 200)",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          },
+          "401": {
+            "description": "Необходим вход"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Записаться (только студент)",
+        "responses": {
+          "201": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          },
+          "401": {
+            "description": "Необходим вход"
+          }
+        },
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "consultation_id": {
+                    "type": "integer"
+                  },
+                  "duration_minutes": {
+                    "type": "integer",
+                    "minimum": 15,
+                    "maximum": 90
+                  }
+                },
+                "required": [
+                  "consultation_id",
+                  "duration_minutes"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/{booking_id}/cancel/": {
+      "post": {
+        "summary": "Отменить свою запись; повторная отмена безопасна",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          },
+          "401": {
+            "description": "Необходим вход"
+          }
+        },
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/health/live/": {
+      "get": {
+        "summary": "Процесс отвечает",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          }
+        }
+      }
+    },
+    "/health/ready/": {
+      "get": {
+        "summary": "Проверить БД и кэш",
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка полей или JSON"
+          },
+          "403": {
+            "description": "CSRF или недостаточно прав"
+          },
+          "409": {
+            "description": "Слот или участник занят, либо дубликат"
+          },
+          "429": {
+            "description": "Слишком много попыток входа/регистрации"
+          },
+          "503": {
+            "description": "Сервис не готов"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sessionid"
+      },
+      "csrf": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-CSRFToken"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{% extends 'schedule/base.html' %}
+{% block title %}Запись №{{ booking.pk }} — Консультант{% endblock %}
+{% block content %}<h1>{{ booking.consultation.topic }}</h1><p>Запись №{{ booking.pk }}</p>
+<p class="pill" id="booking-status">{{ booking.get_status_display }}</p>
+<p>Студент: {{ booking.student.display_name }}</p><p>Преподаватель: {{ booking.consultation.teacher.display_name }}</p>
+<p>Начало: {{ booking.consultation.starts_at|date:'d.m.Y H:i' }} МСК</p>
+<p>Окончание: {{ booking.ends_at|date:'d.m.Y H:i' }} МСК</p>
+<p>Длительность: {{ booking.duration_minutes }} минут</p><p>Место: {{ booking.consultation.location }}</p>
+<p><a href="{{ booking.consultation.get_absolute_url }}">О консультации</a></p>
+{% if booking.status == 'active' %}
+{% if user.pk == booking.student_id %}<p><a href="{% url 'booking_edit' booking_id=booking.pk %}">Изменить запись</a></p>{% endif %}
+<form method="post" action="{% url 'booking_cancel' booking_id=booking.pk %}">{% csrf_token %}<button class="button" type="submit">Отменить запись</button></form>
+{% endif %}{% endblock %}

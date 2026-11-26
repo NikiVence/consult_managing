@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Расписание учебных консультаций. Выберите преподавателя и удобное время.">
+  <title>Консультант — учебные встречи</title>
+  <link rel="stylesheet" href="{% static 'app.css' %}">
+  <script defer src="{% static 'app.js' %}"></script>
+</head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/"><span class="brand-mark">К</span><span>Консультант<small>учебные встречи</small></span></a>
+  <p class="nav-caption">ЛИЧНЫЙ КАБИНЕТ</p>
+  <nav aria-label="Основная навигация">
+    <button id="nav-schedule" class="nav-item active"><span>▦</span> Расписание</button>
+    <button id="nav-bookings" class="nav-item"><span>◷</span> Мои записи <b id="nav-count">0</b></button>
+  </nav>
+  <a class="nav-item" href="{% url 'booking_list' %}">Журнал записей</a>
+  <a class="nav-item" href="{% url 'statistics' %}">Статистика</a>
+  <section class="sidebar-note"><span class="note-star">✦</span><h3>Вопросы становятся<br>понятнее на встрече.</h3><p>Выделите время на то,<br>что действительно важно.</p></section>
+  <a class="api-link" href="/api/docs/">Документация API ↗</a>
+  <div class="sidebar-footer"><span class="status-dot"></span> Учебный портал · 2026</div>
+</aside>
+<div class="workspace">
+  <header class="topbar"><span>Университет <span class="slash">/</span> Консультации</span><div id="account"><button id="login-open" class="button small">Войти</button><div id="signed-in" hidden><span id="account-name"></span><span id="account-role" class="role"></span><button id="logout" class="text-button">Выйти</button></div></div></header>
+  <main>
+    <section class="page-heading"><div><p class="eyebrow">УЧИТЬСЯ ПРОЩЕ, КОГДА ЕСТЬ К КОМУ ОБРАТИТЬСЯ</p><h1 id="page-title">Время разобраться.</h1><p id="page-subtitle">Выберите тему и удобное время для встречи с преподавателем.</p></div><div class="heading-icon" aria-hidden="true">↗</div></section>
+    <div id="notice" role="status" aria-live="polite" hidden></div>
+    <div class="stats"><article><span class="stat-icon blue">▦</span><div><strong id="stat-total">—</strong><p>консультаций впереди</p></div></article><article><span class="stat-icon green">↗</span><div><strong id="stat-free">—</strong><p>свободных встреч</p></div></article><article><span class="stat-icon orange">◷</span><div><strong id="stat-mine">—</strong><p>моих активных записей</p></div></article></div>
+    <section id="schedule-section">
+      <div class="section-heading"><div><h2>Ближайшие консультации</h2><p>Время указано по Москве · GMT+3</p></div><button id="create-open" class="button" hidden>+ Добавить консультацию</button></div>
+      <div class="filters"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" maxlength="100" placeholder="Найти тему или преподавателя" aria-label="Поиск консультаций"></label><label class="check"><input id="only-free" type="checkbox"> Только свободные</label><button id="refresh" class="text-button">↻ Обновить</button></div>
+      <div id="schedule" class="card-grid" aria-live="polite"><p class="empty">Загружаем расписание…</p></div>
+      <p class="footnote">Каждая консультация индивидуальная. Длительность встречи — от 15 до 90 минут.</p>
+    </section>
+    <section id="bookings-section" hidden><div class="section-heading"><div><h2 id="bookings-heading">Мои записи</h2><p>Здесь можно проверить время и отменить встречу.</p></div></div><div id="bookings" class="booking-list"></div></section>
+    <footer class="page-footer"><span>Консультант</span><span>Меньше неопределённости. Больше понимания.</span></footer>
+  </main>
+</div>
+<dialog id="auth-dialog"><form id="auth-form"><div class="dialog-heading"><span class="eyebrow">ДОБРО ПОЖАЛОВАТЬ</span><button type="button" class="close" data-close="auth-dialog" aria-label="Закрыть">×</button></div><h2 id="auth-title">Войти в кабинет</h2><p class="muted">Ваше расписание и записи в одном месте.</p><div class="auth-tabs"><button id="tab-login" class="selected" type="button">Вход</button><button id="tab-register" type="button">Регистрация</button></div><label id="name-label" hidden>Имя и фамилия<input name="name" autocomplete="name" minlength="2" maxlength="150"></label><label>Логин<input name="username" autocomplete="username" required maxlength="40"></label><label>Пароль<input name="password" type="password" autocomplete="current-password" required maxlength="128"></label><p id="password-hint" class="muted" hidden>От 10 символов. Не используйте простой пароль или свой логин.</p><p id="auth-error" class="form-error" role="alert"></p><button id="auth-submit" class="button full" type="submit">Войти</button><p class="dialog-note">При регистрации создаётся аккаунт студента.<br>Аккаунт преподавателя выдаёт администратор.</p></form></dialog>
+<dialog id="booking-dialog"><form id="booking-form"><div class="dialog-heading"><span class="eyebrow">ВАША НОВАЯ ВСТРЕЧА</span><button type="button" class="close" data-close="booking-dialog" aria-label="Закрыть">×</button></div><h2 id="booking-topic"></h2><p id="booking-detail" class="muted"></p><label>Длительность<select id="duration"><option value="15">15 минут</option><option value="30">30 минут</option><option value="45" selected>45 минут</option><option value="60">60 минут</option><option value="90">90 минут</option></select></label><p id="booking-error" class="form-error" role="alert"></p><button id="booking-submit" class="button full" type="submit">Подтвердить запись</button><p class="dialog-note">Если планы изменятся, отмените запись в разделе «Мои записи».</p></form></dialog>
+<dialog id="create-dialog"><form id="create-form"><div class="dialog-heading"><span class="eyebrow">РАСПИСАНИЕ ПРЕПОДАВАТЕЛЯ</span><button type="button" class="close" data-close="create-dialog" aria-label="Закрыть">×</button></div><h2>Новая консультация</h2><label>Тема<input name="topic" required maxlength="160"></label><label>Дата и время (часовой пояс устройства)<input name="starts_at" type="datetime-local" required></label><label>Место встречи<input name="location" required maxlength="120" placeholder="Аудитория или онлайн"></label><p id="create-error" class="form-error" role="alert"></p><button id="create-submit" class="button full" type="submit">Добавить в расписание</button></form></dialog>
+</body></html>

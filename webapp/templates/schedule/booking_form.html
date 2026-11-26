@@ -1,0 +1,5 @@
+{% extends 'schedule/base.html' %}
+{% block content %}<h1>{% if booking %}Изменить запись{% else %}Новая запись{% endif %}</h1>
+<p>Выберите консультацию и длительность встречи. Время указано по Москве.</p>
+<form method="post" novalidate>{% csrf_token %}{% include 'schedule/fields.html' %}
+<button class="button" type="submit">Сохранить запись</button></form>{% endblock %}

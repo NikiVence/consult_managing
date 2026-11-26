@@ -1,0 +1,18 @@
+{% extends 'schedule/base.html' %}
+{% block title %}Мои записи — Консультант{% endblock %}
+{% block content %}
+<h1>Мои записи</h1><p>Время указано по Москве. Фильтры сохраняются при переходе между страницами.</p>
+{% if user.role == 'student' %}<p><a href="{% url 'booking_create' %}">+ Записаться на консультацию</a></p>{% endif %}
+<form method="get" class="filter-form">{% include 'schedule/fields.html' %}<button class="button" type="submit">Применить</button><a href="{% url 'booking_list' %}">Сбросить</a></form>
+<p>Найдено: {{ page_obj.paginator.count }}</p>
+<div class="booking-list">{% for booking in page_obj %}<article class="booking-row"><div>
+<h2><a href="{{ booking.get_absolute_url }}">{{ booking.consultation.topic }}</a></h2>
+<p>{{ booking.consultation.starts_at|date:'d.m.Y H:i' }} · {{ booking.duration_minutes }} мин.</p>
+<p>{{ booking.consultation.teacher.display_name }} · {{ booking.student.display_name }}</p>
+</div><span class="pill">{{ booking.get_status_display }}</span></article>
+{% empty %}<p class="empty">Записей по этим условиям нет.</p>{% endfor %}</div>
+<nav class="page-nav" aria-label="Страницы">
+{% if page_obj.has_previous %}<a href="{% querystring page=page_obj.previous_page_number %}">← Назад</a>{% endif %}
+<span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+{% if page_obj.has_next %}<a href="{% querystring page=page_obj.next_page_number %}">Далее →</a>{% endif %}
+</nav>{% endblock %}

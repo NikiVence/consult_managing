@@ -163,3 +163,24 @@ consult_managing/
 
 Адрес проекта: https://github.com/NikiVence/consult_managing.
 Версия ПР3 включает объектную модель, тесты, документацию и отчёт.
+
+## Практические работы 9–11: Django ORM, Admin и Forms
+
+Продолжение веб-приложения находится в `webapp/schedule`. Добавлены журнал записей
+(`/bookings/`) с фильтрами и пагинацией, статистика (`/statistics/`), серверные формы
+создания/редактирования/отмены, статусы и миграция существующих данных, расширенная
+админка и диагностическая команда `inspect_orm`.
+
+Отчёты, запуск, проверки и памятка для защиты: [docs/framework_pr9_11/README.md](docs/framework_pr9_11/README.md).
+
+Запуск из корня проекта в PowerShell:
+
+```powershell
+.\tools\run_python.ps1 webapp/manage.py migrate
+.\tools\run_python.ps1 webapp/manage.py collectstatic --noinput
+.\tools\run_python.ps1 webapp/manage.py runserver 127.0.0.1:8000
+```
+
+Перед миграцией существующей базы сохраняйте её резервную копию. Миграция `0002`
+переносит отмены в TextChoices, сохраняя идентификаторы и связи. Для демонстрации
+актуального расписания предусмотрена команда `webapp/manage.py seed_demo`.

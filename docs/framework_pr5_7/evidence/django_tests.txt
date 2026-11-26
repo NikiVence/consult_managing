@@ -1,0 +1,115 @@
+$ D:\consult_managing\.venv\Scripts\python.exe webapp/manage.py test schedule --verbosity 2
+Found 34 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: admin, auth, contenttypes, schedule, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying schedule.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying sessions.0001_initial... OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+test_anonymous_cannot_read_private_bookings (schedule.tests.ApiTests.test_anonymous_cannot_read_private_bookings) ... {"method": "GET", "path": "/api/bookings/", "status": 401, "ms": 1.48}
+ok
+test_csrf_is_required_after_login (schedule.tests.ApiTests.test_csrf_is_required_after_login) ... {"method": "POST", "path": "/api/bookings/", "status": 403, "ms": 0.3}
+ok
+test_csrf_is_required_for_login (schedule.tests.ApiTests.test_csrf_is_required_for_login) ... {"method": "POST", "path": "/api/auth/login/", "status": 403, "ms": 0.24}
+{"method": "GET", "path": "/api/csrf/", "status": 200, "ms": 0.19}
+{"method": "POST", "path": "/api/auth/login/", "status": 200, "ms": 2.46}
+ok
+test_full_api_booking_lifecycle (schedule.tests.ApiTests.test_full_api_booking_lifecycle) ... {"method": "POST", "path": "/api/bookings/", "status": 201, "ms": 9.7}
+{"method": "GET", "path": "/api/bookings/", "status": 200, "ms": 5.2}
+{"method": "POST", "path": "/api/bookings/1/cancel/", "status": 200, "ms": 9.08}
+ok
+test_health_and_failed_cache (schedule.tests.ApiTests.test_health_and_failed_cache) ... {"method": "GET", "path": "/health/ready/", "status": 200, "ms": 0.68}
+{"method": "GET", "path": "/health/ready/", "status": 503, "ms": 0.34}
+ok
+test_invalid_and_naive_date (schedule.tests.ApiTests.test_invalid_and_naive_date) ... {"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 3.23}
+{"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 3.54}
+{"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 1.91}
+{"method": "POST", "path": "/api/consultations/", "status": 400, "ms": 1.95}
+ok
+test_invalid_json_returns_400 (schedule.tests.ApiTests.test_invalid_json_returns_400) ... {"method": "POST", "path": "/api/auth/login/", "status": 400, "ms": 0.59}
+ok
+test_login_invalid_and_logout (schedule.tests.ApiTests.test_login_invalid_and_logout) ... {"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 7.82}
+{"method": "POST", "path": "/api/auth/login/", "status": 200, "ms": 11.09}
+{"method": "GET", "path": "/api/auth/me/", "status": 200, "ms": 4.51}
+{"method": "POST", "path": "/api/auth/logout/", "status": 200, "ms": 14.51}
+{"method": "GET", "path": "/api/auth/me/", "status": 200, "ms": 0.37}
+ok
+test_login_rate_limit (schedule.tests.ApiTests.test_login_rate_limit) ... {"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.21}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.86}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.39}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.12}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.51}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.19}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.2}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.78}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 3.24}
+{"method": "POST", "path": "/api/auth/login/", "status": 401, "ms": 1.85}
+{"method": "POST", "path": "/api/auth/login/", "status": 429, "ms": 0.26}
+ok
+test_no_leak_between_students (schedule.tests.ApiTests.test_no_leak_between_students) ... {"method": "GET", "path": "/api/bookings/", "status": 200, "ms": 4.18}
+ok
+test_search_cyrillic_and_injection_literal (schedule.tests.ApiTests.test_search_cyrillic_and_injection_literal) ... {"method": "GET", "path": "/api/consultations/", "status": 200, "ms": 2.36}
+{"method": "GET", "path": "/api/consultations/", "status": 200, "ms": 0.38}
+ok
+test_security_headers_and_methods (schedule.tests.ApiTests.test_security_headers_and_methods) ... {"method": "GET", "path": "/api/consultations/", "status": 200, "ms": 1.85}
+{"method": "GET", "path": "/api/auth/logout/", "status": 405, "ms": 0.09}
+ok
+test_server_template_status_changes_and_privacy (schedule.tests.ApiTests.test_server_template_status_changes_and_privacy) ... {"method": "GET", "path": "/bookings/1/", "status": 200, "ms": 121.28}
+{"method": "GET", "path": "/bookings/1/", "status": 200, "ms": 52.83}
+{"method": "GET", "path": "/bookings/1/", "status": 403, "ms": 4.45}
+ok
+test_signup_cannot_promote_self (schedule.tests.ApiTests.test_signup_cannot_promote_self) ... {"method": "POST", "path": "/api/auth/register/", "status": 201, "ms": 46.81}
+ok
+test_student_cannot_create_slot (schedule.tests.ApiTests.test_student_cannot_create_slot) ... {"method": "POST", "path": "/api/consultations/", "status": 403, "ms": 1.65}
+ok
+test_teacher_creates_only_own_slot (schedule.tests.ApiTests.test_teacher_creates_only_own_slot) ... {"method": "POST", "path": "/api/consultations/", "status": 201, "ms": 2.13}
+ok
+test_unknown_host_rejected (schedule.tests.ApiTests.test_unknown_host_rejected) ... ok
+test_weak_password_rejected (schedule.tests.ApiTests.test_weak_password_rejected) ... {"method": "POST", "path": "/api/auth/register/", "status": 400, "ms": 0.45}
+ok
+test_wrong_content_type_returns_415 (schedule.tests.ApiTests.test_wrong_content_type_returns_415) ... {"method": "POST", "path": "/api/auth/login/", "status": 415, "ms": 0.2}
+ok
+test_adjacent_meetings_allowed (schedule.tests.BookingRulesTests.test_adjacent_meetings_allowed) ... ok
+test_booking_invalidates_cached_availability (schedule.tests.BookingRulesTests.test_booking_invalidates_cached_availability) ... ok
+test_cache_reduces_schedule_queries (schedule.tests.BookingRulesTests.test_cache_reduces_schedule_queries) ... ok
+test_cancel_another_students_booking_rejected (schedule.tests.BookingRulesTests.test_cancel_another_students_booking_rejected) ... ok
+test_cancel_invalidates_cached_availability (schedule.tests.BookingRulesTests.test_cancel_invalidates_cached_availability) ... ok
+test_cancel_is_idempotent_and_releases_slot (schedule.tests.BookingRulesTests.test_cancel_is_idempotent_and_releases_slot) ... ok
+test_create_and_end_time (schedule.tests.BookingRulesTests.test_create_and_end_time) ... ok
+test_database_guards_slot_uniqueness (schedule.tests.BookingRulesTests.test_database_guards_slot_uniqueness) ... ok
+test_duration_boundaries_and_types (schedule.tests.BookingRulesTests.test_duration_boundaries_and_types) ... ok
+test_past_slot_rejected (schedule.tests.BookingRulesTests.test_past_slot_rejected) ... ok
+test_same_slot_rejected_for_another_student (schedule.tests.BookingRulesTests.test_same_slot_rejected_for_another_student) ... ok
+test_student_overlap_with_another_teacher (schedule.tests.BookingRulesTests.test_student_overlap_with_another_teacher) ... ok
+test_teacher_can_cancel_own_consultation_booking (schedule.tests.BookingRulesTests.test_teacher_can_cancel_own_consultation_booking) ... ok
+test_teacher_cannot_book (schedule.tests.BookingRulesTests.test_teacher_cannot_book) ... ok
+test_teacher_overlap_rejected (schedule.tests.BookingRulesTests.test_teacher_overlap_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 1.628s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

@@ -15,3 +15,6 @@ debug.log
 ~$*.docx
 Thumbs.db
 .DS_Store
+.runtime/
+webapp/staticfiles/
+*.sqlite3

@@ -1,0 +1,2 @@
+$ D:\consult_managing\.venv\Scripts\python.exe webapp/manage.py check --deploy
+System check identified no issues (0 silenced).
